@@ -1,0 +1,54 @@
+# relay_gui CMake config file
+#
+# This file sets the following variables:
+# relay_gui_FOUND - Always TRUE.
+# relay_gui_INCLUDE_DIRS - Directories containing the relay_gui include files.
+# relay_gui_IDL_DIRS - Directories containing the relay_gui IDL files.
+# relay_gui_LIBRARIES - Libraries needed to use relay_gui.
+# relay_gui_DEFINITIONS - Compiler flags for relay_gui.
+# relay_gui_VERSION - The version of relay_gui found.
+# relay_gui_VERSION_MAJOR - The major version of relay_gui found.
+# relay_gui_VERSION_MINOR - The minor version of relay_gui found.
+# relay_gui_VERSION_REVISION - The revision version of relay_gui found.
+# relay_gui_VERSION_CANDIDATE - The candidate version of relay_gui found.
+
+message(STATUS "Found relay_gui-@PROJECT_VERSION@")
+set(relay_gui_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(relay_gui_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(relay_gui_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(relay_gui_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(relay_gui_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(relay_gui_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(relay_gui_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(relay_gui_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(relay_gui_VERSION @PROJECT_VERSION@)
+set(relay_gui_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(relay_gui_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(relay_gui_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(relay_gui_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
